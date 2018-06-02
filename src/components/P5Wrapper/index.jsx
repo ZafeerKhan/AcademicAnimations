@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import sketch from "./sketch.js";
+import twoDGrid from "./twoDGrid.js";
+import twoDGridTest from "./twoDGridTest.js";
 
 class P5Wrapper extends Component {
   static propTypes = {
@@ -10,7 +11,8 @@ class P5Wrapper extends Component {
   };
 
   componentDidMount() {
-    this.canvas = new window.p5(sketch, "app-p5_container");
+    //this.canvas = new window.p5(sketch, "app-p5_container");
+    this.canvas = new window.p5(twoDGridTest, "app-p5_container");
     this.canvas.setOnReady(this.props.onReady);
   }
 

@@ -1,46 +1,78 @@
 import React, { Component } from "react";
 import P5Wrapper from "../P5Wrapper/";
+//import Equation from "../Equation";
+import ReactBootstrapSlider from 'react-bootstrap-slider';
+import "./index.css";
 
 export default class App extends Component {
   constructor() {
     super();
-    this.state = { status: "", slider: 100, value: null };
+    this.state =
+    {
+      status: "",
+      colSlider: 10,
+      rowSlider: 10,
+      colValue: null,
+      rowValue: null,
+      equation: ""
+    };
   }
 
-  getValue = (value) => this.setState({ value });
+
+  getColValue = (colValue) => this.setState({ colValue });
+
+  getRowValue = (rowValue) => this.setState({ rowValue });
 
   onReady = () => this.setState({ status: "ready" });
 
-  onSliderChange = (event) => this.setState({ slider: +event.target.value });
+  onSliderColChange = (event) => this.setState({ colSlider: +event.target.value });
+
+  onSliderRowChange = (event) => this.setState({ rowSlider: +event.target.value });
+
+  onEquationChange = (event) => this.setState({ equation: event.target.value });
+
 
   render() {
     return (
       <div className="app">
         <P5Wrapper
-          p5Props={{ slider: this.state.slider }}
-          getValue={this.getValue}
+          p5Props={
+            {
+              colSlider: this.state.colSlider,
+              rowSlider: this.state.rowSlider,
+            }}
+          getColValue={this.getColValue}
+          getRowValue={this.getRowValue}
           onReady={this.onReady}
         />
         <div style={{ textAlign: "center" }}>
-          <strong>{this.state.slider}</strong>
+          <strong>{this.state.colSlider}</strong>
           <br />
           <input type="range"
-            min={5} max={290} step={1}
-            value={this.state.slider}
-            style={{ width: "90%", maxWidth: "900px" }}
-            onChange={this.onSliderChange}
+            min={5} max={30} step={1}
+            value={this.state.colSlider}
+            className = "wpcontent_slider_container"
+            onChange={this.onSliderColChange}
           />
+
+          <br />
+          <strong>{this.state.rowSlider}</strong>
+          <input type="range"
+            min={5} max={30} step={1}
+            value={this.state.rowSlider}
+            className = "wpcontent_slider_container"
+            onChange={this.onSliderRowChange}
+          />
+
+        <input type="text"
+            value={this.state.equation}
+            onChange={this.onEquationChange}
+          />
+        <strong>{this.state.equation}</strong>
+
+
         </div>
-        <p style={{ textAlign: "center" }}>
-          Sketch frame rate:&nbsp;
-          <big><strong>{this.state.value}</strong></big>
-          &nbsp;fps
-        </p>
-        <p style={{ textAlign: "center" }}>
-          <a href="https://github.com/atorov/react-p5js">
-            <img border="0" alt="github logo" src="/img/github-logo.png" width="auto" height="28px" style={{ verticalAlign: "middle" }}/>
-          </a>
-        </p>
+
       </div>
     );
   }
